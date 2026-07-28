@@ -1,21 +1,39 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import BuyerDashboard from "../pages/BuyerDashboard";
+import SellerDashboard from "../pages/SellerDashboard";
+import ProtectedRoute from "./ProtectedRoute";
 
-export default function AppRoutes() {
+const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Home />} />
 
-        <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
-        <Route path="/login" element={<Login />} />
+      <Route
+        path="/buyer-dashboard"
+        element={
+          <ProtectedRoute>
+            <BuyerDashboard />
+          </ProtectedRoute>
+        }
+      />
 
-        <Route path="/register" element={<Register />} />
-
-      </Routes>
-    </BrowserRouter>
+      <Route
+        path="/seller-dashboard"
+        element={
+          <ProtectedRoute>
+            <SellerDashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
-}
+};
+
+export default AppRoutes;
